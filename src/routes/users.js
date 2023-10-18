@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     },
 });
-const upload = multer({dest: "user_assets"});
+const upload = multer({storage,});
 
 import {getAll,addnew, getbyId} from "../controllers/crud";
 

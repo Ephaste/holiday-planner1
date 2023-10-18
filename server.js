@@ -1,6 +1,9 @@
 import  express  from "express";
 import bodyParser from "body-parser";
-import "dotenv/config";
+
+///import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
 import { logger } from "./src/middleware/logger";
 import mongoose from "mongoose";
 import usersRouter from "./src/routes";

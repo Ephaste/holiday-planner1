@@ -1,9 +1,20 @@
 
 import {User} from "../../models"
-import path from "path"
+//import path from "path"
+import cloudinary from "cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
+  cloudinary.v2;
+  cloudinary.config({
+    cloud_name:process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.SECRET_KEY,
+  });
 export const  addnew = async(req, res) =>{
     let user = req.body
     //let photo =req.file;
+    const image = await cloudinary.uploader.upload(req.file.path);
+    console.log(image);
     
       let newUser =   await User.create({
         email: user.email,
