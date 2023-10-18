@@ -20,4 +20,4 @@ const tourSchema = mongoose.Schema({
     priceNotIncluded: String,
 
 });
-export const tour =mongoose.model("user", tourSchema);
+export const tour =mongoose.model("tour", tourSchema);

@@ -1,11 +1,26 @@
 
 import {User} from "../../models"
+import path from "path"
 export const  addnew = async(req, res) =>{
-    let user = req.body;
+    let user = req.body
+    //let photo =req.file;
     
-      let newUser =   await User.create(user);
+      let newUser =   await User.create({
+        email: user.email,
+      fullNames: user.fullNames,
+      password: user.password,
+      phoneNumber:user.phoneNumber,
+      image:req.file.path,
+      location: user.location
+
+
+
+      });
         
+
         console.log(newUser);
+        console.log(req.body);
+        console.log(req.file);
         res.status(201).json(newUser);
 
 };
