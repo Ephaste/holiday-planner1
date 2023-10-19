@@ -21,3 +21,17 @@ export const  getAllb = async(req, res) =>{
     const newBooking = await  booking.find({});
      res.status(200).json(newBooking);
 }
+//Getting all contacts
+import {contact} from "../../models";
+
+export const  getAllc = async(req, res) =>{
+    const newContact = await  contact.find({});
+     res.status(200).json(newContact);
+}
+//Getting all testimonies
+import {testimonies} from "../../models";
+
+export const  getAllts= async(req, res) =>{
+    const newTestimonie = await  contact.find({});
+     res.status(200).json(newTestimonie);
+}

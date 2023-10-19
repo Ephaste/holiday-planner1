@@ -9,6 +9,8 @@ import { logger } from "./src/middleware/logger";
 import mongoose from "mongoose";
 import usersRouter from "./src/routes";
 import toursRouter from "./src/routes";
+import contactsRouter from "./src/routes";
+import testimoniesRouter from "./src/routes";
 import morgan from "morgan";
 import bookingsRouter from "./src/routes";
 import authRouter from "./src/routes";
@@ -23,6 +25,8 @@ app.use("/tours", toursRouter)
 app.use("/users", usersRouter);
 app.use("/auth",authRouter);
 app.use("/bookings", bookingsRouter);
+app.use("/contacts", contactsRouter);
+app.use("/testimonies",testimoniesRouter);
 app.use(mainRouter);
 
 let port = 3000;

@@ -66,6 +66,42 @@ export const  addnewb = async(req, res) =>{
   }catch(error){
     res.status(500).json({ error: "Internal server error" });
   }
+};
+   //Creating a new contact
+
+
+import {contact} from "../../models";
+
+export const  addnewc = async(req, res) =>{
+  try{
+    let Contact = req.body;
+    
+    let newContact =   await contact.create(Contact);
+      
+      console.log(newContact);
+      res.status(201).json(newContact);
+  }catch(error){
+    res.status(500).json({ error: "Internal server error" });
+  }
+   
+
+};
+//Creating a new contact
+
+
+import {testimonies} from "../../models";
+
+export const  addnewts = async(req, res) =>{
+  try{
+    let Testimonies = req.body;
+    
+    let newTestimonies =   await contact.create(Testimonies);
+      
+      console.log(newTestimonies);
+      res.status(201).json(newTestimonies);
+  }catch(error){
+    res.status(500).json({ error: "Internal server error" });
+  }
    
 
 };
