@@ -56,12 +56,17 @@ export const  addnewt = async(req, res) =>{
 import {booking} from "../../models"
 
 export const  addnewb = async(req, res) =>{
+  try{
     let Booking = req.body;
     
-      let newBooking =   await booking.create(Booking);
-        
-        console.log(newBooking);
-        res.status(201).json(newBooking);
+    let newBooking =   await booking.create(Booking);
+      
+      console.log(newBooking);
+      res.status(201).json(newBooking);
+  }catch(error){
+    res.status(500).json({ error: "Internal server error" });
+  }
+   
 
 };
 

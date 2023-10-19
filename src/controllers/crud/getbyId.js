@@ -52,7 +52,7 @@ export const getbyIdb = async (req, res) => {
         return res.status(404).json({ error: "User is not found" });
       }
   
-      res.status(200).json(Tour);
+      res.status(200).json(Booking);
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
     }
