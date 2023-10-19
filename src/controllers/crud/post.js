@@ -38,12 +38,30 @@ export const  addnew = async(req, res) =>{
 //  Creating a new tour:
 import {tour} from "../../models"
 export const  addnewt = async(req, res) =>{
+  try{
     let Tour = req.body;
     
-      let newTour =   await tour.create(Tour);
+    let newTour =   await tour.create(Tour);
+      
+      console.log(newTour);
+      res.status(201).json(newTour);
+  }
+  catch(error){
+    res.status(500).json({ error: "Internal server error" });
+  };
+   
+
+};
+//  Creating a new booking:
+import {booking} from "../../models"
+
+export const  addnewb = async(req, res) =>{
+    let Booking = req.body;
+    
+      let newBooking =   await booking.create(Booking);
         
-        console.log(newTour);
-        res.status(201).json(newTour);
+        console.log(newBooking);
+        res.status(201).json(newBooking);
 
 };
 
