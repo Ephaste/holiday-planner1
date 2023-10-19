@@ -9,13 +9,15 @@ import { logger } from "./src/middleware/logger";
 import mongoose from "mongoose";
 import usersRouter from "./src/routes";
 import toursRouter from "./src/routes";
+import morgan from "morgan";
 import bookingsRouter from "./src/routes";
 import authRouter from "./src/routes";
  import mainRouter from "./src/routes";
 
 const app =express();
 app.use(bodyParser.json());
-app.use(cors)
+app.use(cors())
+app.use(morgan("dev"))
 app.use(logger);
 app.use("/tours", toursRouter)
 app.use("/users", usersRouter);
