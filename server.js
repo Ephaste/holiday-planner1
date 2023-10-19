@@ -15,6 +15,7 @@ import morgan from "morgan";
 import bookingsRouter from "./src/routes";
 import authRouter from "./src/routes";
  import mainRouter from "./src/routes";
+ //import low from "lowdb"
 
 const app =express();
 app.use(bodyParser.json());
@@ -28,6 +29,10 @@ app.use("/bookings", bookingsRouter);
 app.use("/contacts", contactsRouter);
 app.use("/testimonies",testimoniesRouter);
 app.use(mainRouter);
+//app.db =db;
+// const fileSync = require("lowdb/adapters/fileSync");
+// const adapter = new fileSync("db.json");
+// const db = low(adapter)
 
 let port = 3000;
 console.log(process.env.DB_CONNECTION_DEV);
