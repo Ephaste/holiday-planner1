@@ -53,7 +53,7 @@ export const  addnewt = async(req, res) =>{
 
 };
 //  Creating a new booking:
-import {booking} from "../../models"
+import {booking} from "../../models";
 
 export const  addnewb = async(req, res) =>{
   try{
