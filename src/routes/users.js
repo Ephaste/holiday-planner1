@@ -1,6 +1,7 @@
 
 import express  from "express";
 import multer from "multer";
+//import nanoid from "nanoid";
 
 import { verifyToken,logger, isAdmin } from "../middleware";
 const usersRouter = express.Router();
@@ -15,12 +16,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage,});
 
-import {getAll,addnew, getbyId} from "../controllers/crud";
+import {getAll,addnew, getbyId, removeData, } from "../controllers/crud";
 
 //usersRouter.use(verifyToken);
 usersRouter.get("/", getAll);
 usersRouter.post("/",upload.single("image"),logger, addnew);
-// studentsRouter.delete("/:id",removeData);
+usersRouter.delete("/:id",removeData);
 // studentsRouter.put("/:id",putData);
  usersRouter.get("/:id",isAdmin, getbyId);
 // studentsRouter.put("/:id",UpdateData);
