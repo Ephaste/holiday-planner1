@@ -3,14 +3,14 @@ import express  from "express";
 import { isAdmin } from "../middleware";
 const testimoniesRouter = express.Router();
 
-import {getAllts,addnewts, getbyIdts} from "../controllers/crud";
+import {getAllts,addnewts, getbyIdts, removeDatats} from "../controllers/crud";
 
 
 
 //usersRouter.use(verifyToken);
 testimoniesRouter.get("/", getAllts);
 testimoniesRouter.post("/", addnewts);
-// studentsRouter.delete("/:id",removeData);
+ testimoniesRouter.delete("/:id",removeDatats);
 // studentsRouter.put("/:id",putData);
  testimoniesRouter.get("/:id",isAdmin, getbyIdts);
 // studentsRouter.put("/:id",UpdateData);

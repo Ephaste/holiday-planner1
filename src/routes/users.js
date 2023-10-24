@@ -200,7 +200,7 @@ usersRouter.get("/", getAll);
 usersRouter.post("/",upload.single("image"),logger, addnew);
 usersRouter.delete("/:id",removeData);
 // studentsRouter.put("/:id",putData);
- usersRouter.get("/:id", getbyId);
+ usersRouter.get("/:id",isAdmin, getbyId);
 // studentsRouter.put("/:id",UpdateData);
 
 export default usersRouter;

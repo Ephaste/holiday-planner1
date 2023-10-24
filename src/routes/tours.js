@@ -3,7 +3,7 @@ import express  from "express";
 import { isAdmin } from "../middleware";
 const toursRouter = express.Router();
 
-import {getAllt,addnewt, getbyIdt} from "../controllers/crud";
+import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
 
 // /**
 //  * @swagger
@@ -150,7 +150,7 @@ import {getAllt,addnewt, getbyIdt} from "../controllers/crud";
 //usersRouter.use(verifyToken);
 toursRouter.get("/", getAllt);
 toursRouter.post("/", addnewt);
-// studentsRouter.delete("/:id",removeData);
+toursRouter.delete("/:id",removeDatat);
 // studentsRouter.put("/:id",putData);
  toursRouter.get("/:id",isAdmin, getbyIdt);
 // studentsRouter.put("/:id",UpdateData);
