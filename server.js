@@ -12,8 +12,8 @@ import toursRouter from "./src/routes";
 import contactsRouter from "./src/routes";
 import testimoniesRouter from "./src/routes";
 import morgan from "morgan";
-import swaggerJsDoc from "swagger-jsdoc";
-import SwaggerUI from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
 import bookingsRouter from "./src/routes";
 import authRouter from "./src/routes";
  import mainRouter from "./src/routes";
@@ -37,33 +37,31 @@ app.use(mainRouter);
 //  const db = low(adapter)
 
 let port = 3000;
-const swaggerOptions = {
+const options = {
   swaggerDefinition: {
+    openapi : "3.0.0",
     info: {
-      title: "Customer API Information",
-      description: "Customer API information",
-      contact: {
-        name: "Holiday-planners"
-      },
+      title: "HOLIDAY PLANNERS",
+      version :"1.0.0",
+      description: "A simple Express API",
     },
-    servers: ["https://localhost:3000"],
-  },
+    servers: [  
+      {
+        url: "http://localhost:3000"
+      }
+    ],
+    
+    } ,
+    apis: ["./src/routes/*.js"],
+  }
   // Define the 'apis' array here within 'swaggerOptions'
-  apis: ["./src/routes/*.js"], // Specify the path to your API route files
-};
+   // Specify the path to your API route files
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", SwaggerUI.serve, SwaggerUI.setup(swaggerDocs));
-//ROUTES
-/**
- * @swagger
- * /users:
- *   get:
- *     description: Use to get all users
- *     responses:
- *       '200':
- *         description: A successful response
- */
+const specs = swaggerJSDoc(options)
+
+const swaggerDocs = swaggerJSDoc(options);
+app.use("/api-docs",swaggerUI.serve, swaggerUI.setup(specs))
+ 
 
 
 console.log(process.env.DB_CONNECTION_DEV);

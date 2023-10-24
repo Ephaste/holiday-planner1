@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     phoneNumber: String,
     location: String,
     image: String,
-    role: {type: String, default: "User"},
+    role: {type: String, default: "user"},
    
 });
 export const User =mongoose.model("User", userSchema);
