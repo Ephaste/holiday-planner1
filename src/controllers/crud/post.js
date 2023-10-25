@@ -40,13 +40,34 @@ import {tour} from "../../models"
 export const  addnewt = async(req, res) =>{
   try{
     let Tour = req.body;
-    
-    let newTour =   await tour.create(Tour);
+    const image = await cloudinary.uploader.upload(req.file);
+    console.log(image);
+    let newTour =   await tour.create({
+    destinatiom: Tour.description,
+    backdropImage: Tour.backdropImage,
+    title: Tour.title,
+    description: Tour.description,
+    duration: Tour.duration,
+    groupSize: Tour.groupSize,
+    price: Tour.price,
+    discount: Tour.discount,
+    tourType: Tour.tourType,
+    departure: Tour.departure,
+    seats: Tour.seats,
+    fromMonth: Tour.fromMonth,
+    toMonth: Tour.toMonth,
+    departureTime: Tour.departureTime,
+    returnTime: Tour.returnTime,
+    gallery: req.file,
+    priceIncluded: Tour.priceIncluded,
+    priceNotIncluded: Tour.priceNotIncluded,
+    });
       
       console.log(newTour);
       res.status(201).json(newTour);
   }
   catch(error){
+    console.log(error);
     res.status(500).json({ error: "Internal server error" });
   };
    
@@ -95,7 +116,7 @@ export const  addnewts = async(req, res) =>{
   try{
     let Testimonies = req.body;
     
-    let newTestimonies =   await contact.create(Testimonies);
+    let newTestimonies =   await testimonies.create(Testimonies);
       
       console.log(newTestimonies);
       res.status(201).json(newTestimonies);

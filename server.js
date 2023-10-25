@@ -43,7 +43,7 @@ const options = {
     info: {
       title: "HOLIDAY PLANNERS",
       version :"1.0.0",
-      description: "A simple Express API",
+      description: "It is all about holiday planners API documentation using swagger",
     },
     servers: [  
       {
