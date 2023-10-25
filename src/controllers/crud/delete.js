@@ -5,7 +5,7 @@ import { User} from "../../models";
 export const removeData = async (req, res) => {
     try {
       let user = await User.findByIdAndRemove(req.params.id);
-      if (user) {
+      if (!user) {
         return res
           .status(httpStatus.BAD_REQUEST)
           .json({ message: "user not found" });
