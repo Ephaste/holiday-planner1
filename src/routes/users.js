@@ -157,6 +157,38 @@ import multer from "multer";
  *       500:
  *         description: Some error occurred
  */
+/**
+ * @swagger
+ * /users/{id}:
+ *   patch:
+ *     summary: Update the user by ID
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Users'
+ *     responses:
+ *       200:
+ *         description: The user was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/users'
+ *       404:
+ *         description: The user was not found
+ *       500:
+ *         description: Some error occurred
+ */
 
 /**
  * @swagger
@@ -193,7 +225,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage,});
 
-import {getAll,addnew, getbyId, removeData, } from "../controllers/crud";
+import {getAll,addnew, getbyId, removeData, UpdateData} from "../controllers/crud";
 
 //usersRouter.use(verifyToken);
 usersRouter.get("/", getAll);
@@ -201,7 +233,7 @@ usersRouter.post("/",upload.single("image"),logger, addnew);
 usersRouter.delete("/:id",removeData);
 // studentsRouter.put("/:id",putData);
  usersRouter.get("/:id", getbyId);
-// studentsRouter.put("/:id",UpdateData);
+ usersRouter.patch("/:id",UpdateData);
 
 export default usersRouter;
               

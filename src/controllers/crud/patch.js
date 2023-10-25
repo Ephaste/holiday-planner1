@@ -1,41 +1,27 @@
-// import students from "../../utils/studentsDatabase";
-// export const patch =("/:id", (req, res) => {
-//     const studentId = parseInt(req.params.id);
-//     const updatedStudent = req.body;
+import { User } from "../../models";
 
-//     const currentStudent = students.find((x) => x.studentId === studentId);
-
-//     if (currentStudent) {
-//         if (updatedStudent.firstName) {
-//             currentStudent.firstName = updatedStudent.firstName;
-//         }
-//         if (updatedStudent.lastName) {
-//             currentStudent.lastName = updatedStudent.lastName;
-//         }
-//         if (updatedStudent.Gender) {
-//             currentStudent.Gender = updatedStudent.Gender;
-//         }
-
-//         res.status(200).json(currentStudent);
-//     } else {
-//         res.statusMessage = "Student does not exist";
-//         res.sendStatus(404);
-//     }
-// });
-//Update User By ID
-import { students} from "../../models";
 export const UpdateData = async (req, res) => {
+  const userId = req.params.id; // Assuming the ID is passed as a URL parameter
+  const updateData = req.body; // Data to be updated in the user document
+
   try {
-    let student = await students.findById(req.params.Id);
-    if (!student) {
-      return res
-        .status(httpStatus.BAD_REQUEST)
-        .json({ message: "User not found" });
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
-    Object.assign(student, req.body);
-    await student.save();
-    return res.json(user);
+
+    // Update the user's information based on the data provided in the request body
+    user.email = updateData.email || user.email;
+    user.fullNames = updateData.fullNames || user.fullNames;
+    user.phoneNumber = updateData.phoneNumber || user.phoneNumber;
+    // Add other fields that you want to update in a similar way
+
+    // Save the updated user document
+    const updatedUser = await user.save();
+
+    res.status(200).json(updatedUser);
   } catch (error) {
-    return res.status(500).json({ error: error.toString() });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
