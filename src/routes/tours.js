@@ -3,8 +3,8 @@ import express  from "express";
 import multer from "multer";
 import { isAdmin } from "../middleware";
 const toursRouter = express.Router();
-
-import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
+import tourImagesUpload from "../middleware/multerTour";
+import {getAllt, getbyIdt, removeDatat, addnewt,UpdateDatat} from "../controllers/crud";
 
 /**
  * @swagger
@@ -19,7 +19,7 @@ import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
  *       type: object
  *       required:
  *         - destination
- *         - backDropImage
+ *         - backdropImage
  *         - title
  *         - description
  *         - duration
@@ -40,7 +40,7 @@ import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
  *         destination:
  *           type: string
  *           description: The destination of the tour
- *         backDropImage:
+ *         backdropImage:
  *           type: string
  *           format: binary
  *           description: The backdrop image for the tour
@@ -97,7 +97,7 @@ import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
  *           description: What's not included in the tour price
  *       example:
  *         destination: "Rwanda, East Africa"
- *         backDropImage: "Beautiful_Rwanda.jpeg"
+ *         backdropImage: "Beautiful_Rwanda.jpeg"
  *         title: "Rwanda's Natural Wonders Expedition"
  *         description: "Explore the breathtaking landscapes and wildlife of Rwanda, known as the 'Land of a Thousand Hills.'"
  *         duration: "10 days, 9 nights"
@@ -221,6 +221,38 @@ import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
 /**
  * @swagger
  * /tours/{id}:
+ *   patch:
+ *     summary: Update the user by ID
+ *     tags:
+ *       - Tours
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Tours'
+ *     responses:
+ *       200:
+ *         description: The tour was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/tours'
+ *       404:
+ *         description: The user was not found
+ *       500:
+ *         description: Some error occurred
+ */
+/**
+ * @swagger
+ * /tours/{id}:
  *   delete:
  *     summary: Remove the user by ID
  *     tags:
@@ -241,27 +273,49 @@ import {getAllt,addnewt, getbyIdt, removeDatat} from "../controllers/crud";
  */
 //usersRouter.use(verifyToken);
 
+import {logger} from "../middleware";
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "tours_assets"); // Set the destination folder for uploaded files
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname); // Use the original file name
+//   },
+// });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "tours_assets"); // Set the destination folder for uploaded files
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Use the original file name
-  },
-});
 
-const upload = multer({ storage: storage });
+
+
+toursRouter.get("/", getAllt);
+
+// To handle file upload with a single image field named "backdropImage"
+toursRouter.post("/", tourImagesUpload, addnewt);
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "tours_assets"); // Set the destination folder for uploaded files
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname); // Use the original file name
+//   },
+// });
+
+//const singleImageUpload = multer({ storage: storage }).single("backdropImage");
+//const multipleImageUpload = multer({ storage: storage }).array("gallery", 5);
+
+//const upload = multer({ storage: storage });
 
 // Then, use the 'upload' middleware in your route handlers that handle file uploads.
-
+//const upload = multer({storage,});
 //const upload = multer({storage,})
 toursRouter.get("/", getAllt);
-toursRouter.post("/", addnewt);
+//toursRouter.post("/", addnewt);
+//toursRouter.post("/",upload.single("backdropImage"),logger, addnewt);
+//toursRouter.post("/",multipleImageUpload,singleImageUpload,logger, addnewt);
 toursRouter.delete("/:id",removeDatat);
 // studentsRouter.put("/:id",putData);
- toursRouter.get("/:id",isAdmin, getbyIdt);
-// studentsRouter.put("/:id",UpdateData);
+ toursRouter.get("/:id", getbyIdt);
+toursRouter.patch("/:id",UpdateDatat);
 
 export default toursRouter;
               

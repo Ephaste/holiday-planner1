@@ -3,6 +3,7 @@
 
 export const logger = function(req, res, next){
     console.log(req.body);
+   // return res.status(201).json(req.body);
     next();
     }
     

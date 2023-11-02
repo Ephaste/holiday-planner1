@@ -1,6 +1,6 @@
 
 import {User} from "../../models"
-//import path from "path"
+import path from "path";
 import cloudinary from "cloudinary";
 import dotenv from "dotenv";
 dotenv.config();
@@ -35,44 +35,40 @@ export const  addnew = async(req, res) =>{
         res.status(201).json(newUser);
 
 };
-//  Creating a new tour:
-import {tour} from "../../models"
-export const  addnewt = async(req, res) =>{
-  try{
-    let Tour = req.body;
-    const image = await cloudinary.uploader.upload(req.file);
-    console.log(image);
-    let newTour =   await tour.create({
-    destinatiom: Tour.description,
-    backdropImage: Tour.backdropImage,
-    title: Tour.title,
-    description: Tour.description,
-    duration: Tour.duration,
-    groupSize: Tour.groupSize,
-    price: Tour.price,
-    discount: Tour.discount,
-    tourType: Tour.tourType,
-    departure: Tour.departure,
-    seats: Tour.seats,
-    fromMonth: Tour.fromMonth,
-    toMonth: Tour.toMonth,
-    departureTime: Tour.departureTime,
-    returnTime: Tour.returnTime,
-    gallery: req.file,
-    priceIncluded: Tour.priceIncluded,
-    priceNotIncluded: Tour.priceNotIncluded,
-    });
-      
-      console.log(newTour);
-      res.status(201).json(newTour);
-  }
-  catch(error){
-    console.log(error);
-    res.status(500).json({ error: "Internal server error" });
-  };
-   
+ ///addTour 
+import {tour } from "../../models";
 
+export const addnewt = async (req, res, next) => {
+  const tourImagesArray = [];
+  const backdropImage = await cloudinary.uploader.upload(
+    req.files["backdropImage"][0].path
+  );
+
+  if (req.files["gallery"]) {
+    console.log(req.files["gallery"]);
+    for (let index = 0; index < req.files["gallery"].length; index++) {
+      tourImagesArray.push(
+        await cloudinary.uploader.upload(req.files["gallery"][index].path)
+      );
+    }
+  }
+
+
+  const newTour = await tour.create({
+    ...req.body,
+    backdropImage: backdropImage.secure_url,
+    gallery: req.files["gallery"]
+      ? tourImagesArray.map((item) => item.secure_url)
+      : "",
+  });
+  console.log(req.file);
+console.log(newTour);
+  return res.status(201).json({
+    status: "Tour created successfully",
+    data: { newTour },
+  });
 };
+
 //  Creating a new booking:
 import {booking} from "../../models";
 
@@ -92,6 +88,9 @@ export const  addnewb = async(req, res) =>{
 
 
 import {contact} from "../../models";
+import {htmlMessageContact} from "../../utils/messagecontact";
+import { sendEmail } from "../authentication/appController";
+   
 
 export const  addnewc = async(req, res) =>{
   try{
@@ -101,6 +100,7 @@ export const  addnewc = async(req, res) =>{
       
       console.log(newContact);
       res.status(201).json(newContact);
+      await sendEmail(Contact.email,"welcome message","thanks",htmlMessageContact);
   }catch(error){
     res.status(500).json({ error: "Internal server error" });
   }

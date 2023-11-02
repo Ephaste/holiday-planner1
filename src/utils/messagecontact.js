@@ -1,4 +1,4 @@
-export const htmlMessage = `
+export const htmlMessageContact = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -84,14 +84,13 @@ export const htmlMessage = `
         ><img src="logo.png" class="logo" alt="HolidaysPlanners icon"
       /></a>
     </div>
-    <h1>Welcome to our website</h1>
+    <h1>Thanks for contacting us we will reach on you later</h1>
 
     <div class="menu">
       <hr class="bottom-line" />
       <p>
         Dear User,<br /><br />
-        As a valued member of our community, <br> you'll gain access to a world of possibilities and personalized travel solutions.<br>
-           Whether you're seeking a tropical escape, a cultural exploration, or a relaxing getaway, we're here to make your dreams a reality.
+       re to make your dreams a reality.
           
       </p>
       <a
@@ -103,11 +102,7 @@ export const htmlMessage = `
       <div class="connect">
         <p>
           <b>
-          We're thrilled to welcome you to the Holiday Planners  family!<br> 
-          Your adventure awaits, and we're excited to be your trusted partner in crafting unforgettable travel experiences.<br>
-
-          
-          Here's what you can look forward to as a Holiday Planners  member: <br>Best regards,
+         We have seen you thanks for contacting us!
           </b>
         </p>
       </div>

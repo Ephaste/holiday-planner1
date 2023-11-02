@@ -37,6 +37,7 @@ import multer from "multer";
  *           description: The location of the user
  *         image:
  *           type: string
+ *           format: binary
  *           description: Image of the user
  *         role:
  *           type: string
@@ -232,7 +233,7 @@ usersRouter.get("/", getAll);
 usersRouter.post("/",upload.single("image"),logger, addnew);
 usersRouter.delete("/:id",removeData);
 // studentsRouter.put("/:id",putData);
- usersRouter.get("/:id", getbyId);
+ usersRouter.get("/:id", isAdmin, getbyId);
  usersRouter.patch("/:id",UpdateData);
 
 export default usersRouter;

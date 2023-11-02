@@ -3,7 +3,7 @@ import express  from "express";
 import { isAdmin } from "../middleware";
 const bookingsRouter = express.Router();
 
-import {getAllb,addnewb, getbyIdb,removeDatab} from "../controllers/crud";
+import {getAllb,addnewb, getbyIdb,removeDatab, UpdateDatab} from "../controllers/crud";
 
 /**
  * @swagger
@@ -14,6 +14,11 @@ import {getAllb,addnewb, getbyIdb,removeDatab} from "../controllers/crud";
  *       required:
  *         - tourId
  *         - userId
+ *         - whoBooked
+ *         - tourBooked
+ *         - date
+ *         - Status
+ *         - numberOfTicket
  *         - isPayed
  *         - paymentMethod
  *         - location
@@ -27,22 +32,42 @@ import {getAllb,addnewb, getbyIdb,removeDatab} from "../controllers/crud";
  *         userId:
  *           type: string
  *           description: The id of the user
+ *         whoBooked:
+ *           type: string
+ *           description: a person who booked
+ *         tourBooked:
+ *           type: string
+ *           description: the tour booked
+ *         date:
+ *           type: string
+ *           description: The date of booking
+ *         Status:
+ *           type: string
+ *           description: The date of booking
+ *         numberOfTicket:
+ *           type: string
+ *           description: The date of booking
  *         isPayed:
  *           type: string
- *           description: Whether booking payed or not
+ *           description: The date of booking
  *         paymentMethod:
  *           type: string
- *           description: the way payment is done
+ *           description: The date of booking
  *         location:
  *           type: string
- *           description: The location of the user
+ *           description: The date of booking
  *       example:
  *         id: 2d3f
  *         tourId: "4546"
  *         userId: "76hhu88"
- *         isPayed: "Yes"
- *         paymentMethod: "Momo"
- *         location: "Kigali, rwampala"
+ *         whoBooked: "Yes"
+ *         tourBooked: "Momo"
+ *         date: "june 2002"
+ *         Status: "Pending"
+ *         numberOfTicket: "2"
+ *         isPayed: "yes"
+ *         paymentMethod: "momo"
+ *         location: "Kiggali, Rwanda"
  */
 /**
  * @swagger
@@ -61,14 +86,14 @@ import {getAllb,addnewb, getbyIdb,removeDatab} from "../controllers/crud";
  *     requestBody:
  *          required: true
  *          content:
- *            multipart/form-data:
+ *            application/json:
  *               schema:
  *                   $ref: '#/components/schemas/bookings'
  *     responses:
  *       201:
  *          description: The new booking data was successfully created
  *          content:
- *             multipart/form-data:
+ *             application/json:
  *               schema:
  *                   $ref: '#/components/schemas/bookings'
  *       500:
@@ -147,6 +172,39 @@ import {getAllb,addnewb, getbyIdb,removeDatab} from "../controllers/crud";
  *       500:
  *         description: Some error occurred
  */
+
+/**
+ * @swagger
+ * /bookings/{id}:
+ *   patch:
+ *     summary: Update the booking by ID
+ *     tags:
+ *       - Bookings
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The booking ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Bookings'
+ *     responses:
+ *       200:
+ *         description: The user was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/bookings'
+ *       404:
+ *         description: The user was not found
+ *       500:
+ *         description: Some error occurred
+ */
 /**
  * @swagger
  * /bookings/{id}:
@@ -174,7 +232,7 @@ bookingsRouter.post("/", addnewb);
 bookingsRouter.delete("/:id",removeDatab);
 // studentsRouter.put("/:id",putData);
  bookingsRouter.get("/:id",isAdmin, getbyIdb);
-// studentsRouter.put("/:id",UpdateData);
+bookingsRouter.put("/:id",UpdateDatab);
 
 export default bookingsRouter;
               

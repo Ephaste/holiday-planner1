@@ -12,7 +12,6 @@ import {getAllc,addnewc, getbyIdc,removeDatac } from "../controllers/crud";
  *       type: object
  *       required:
  *         - emails
- *         - replays
  *       properties:
  *         id:
  *           type: string
@@ -21,7 +20,7 @@ import {getAllc,addnewc, getbyIdc,removeDatac } from "../controllers/crud";
  *           type: string
  *           description: email of the user
  *         replays:
- *           type: string
+ *           type: default
  *           description: The response 
  *       example:
  *         id: 2d3f
@@ -45,14 +44,14 @@ import {getAllc,addnewc, getbyIdc,removeDatac } from "../controllers/crud";
  *     requestBody:
  *          required: true
  *          content:
- *            multipart/form-data:
+ *            application/json:
  *               schema:
  *                   $ref: '#/components/schemas/contacts'
  *     responses:
  *       201:
  *          description: The new contact data was successfully created
  *          content:
- *             multipart/form-data:
+ *             application/json:
  *               schema:
  *                   $ref: '#/components/schemas/contacts'
  *       500:
@@ -156,7 +155,7 @@ contactsRouter.post("/", addnewc);
 contactsRouter.delete("/:id",removeDatac);
 // studentsRouter.put("/:id",putData);
  contactsRouter.get("/:id",isAdmin, getbyIdc);
-// studentsRouter.put("/:id",UpdateData);
+ //contactsRouter.patch("/:id",UpdateDatac);
 
 export default contactsRouter;
               
