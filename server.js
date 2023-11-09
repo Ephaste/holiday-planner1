@@ -17,6 +17,8 @@ import swaggerUI from "swagger-ui-express";
 import bookingsRouter from "./src/routes";
 import authRouter from "./src/routes";
  import mainRouter from "./src/routes";
+ import payRouter from "./src/routes/paypack"
+ import contactReplayRouter from "./src/routes/replay";
  import appError from "./src/utils";
  import { globalErrorHandler } from "./src/middleware";
  //const low =require("lowdb");
@@ -26,6 +28,7 @@ app.use(bodyParser.json());
 app.use(cors())
 app.use(morgan("dev"))
 app.use(logger);
+app.use("/replay", contactReplayRouter);
 app.use("/tours", toursRouter)
 app.use("/users", usersRouter);
 app.use("/auth",authRouter);
@@ -33,6 +36,8 @@ app.use("/bookings", bookingsRouter);
 app.use("/contacts", contactsRouter);
 app.use("/testimonies",testimoniesRouter);
 app.use(mainRouter);
+app.use("/payment/cashin", payRouter);
+app.use("/payment/cashout", payRouter);
 
 
 //pp.db =db;

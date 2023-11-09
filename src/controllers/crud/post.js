@@ -61,7 +61,7 @@ export const addnewt = async (req, res, next) => {
       ? tourImagesArray.map((item) => item.secure_url)
       : "",
   });
-  console.log(req.file);
+console.log(req.file);
 console.log(newTour);
   return res.status(201).json({
     status: "Tour created successfully",
@@ -107,7 +107,7 @@ export const  addnewc = async(req, res) =>{
    
 
 };
-//Creating a new contact
+//Creating a new testimony
 
 
 import {testimonies} from "../../models";
@@ -123,8 +123,38 @@ export const  addnewts = async(req, res) =>{
   }catch(error){
     res.status(500).json({ error: "Internal server error" });
   }
-   
 
 };
-
+//Replay
+//import { sendEmail } from "../authentication/appController";
+import { htmlMessage } from "../../utils/message";
+import { replay } from "../../models/replayModel"
+export const replayFunction = async (req, res, next)=>{
+  var id = req.params.id;
+  const contactt = await  contact.findById(id);
+  if(!contactt){
+    return res.status(404).json({
+      message : `We did n't see the document with ${id}`
+    });
+  }
+  req.body.contactId =id;
+  req.body.adminEmail =req.userEmail;
+  let tobeReplied = contactt.emails;
+console.log(tobeReplied,"===============================================================")
+  contact. replay=req.body;
+  const dateReplied = new Date;
+  await contactt.save();
+  if(!req.body || req.body.replay ==" "){
+    return res.status(404).json({
+      message: `You can not send the empt message`
+    });
+  }
+  let repl= await replay.create(req.body);
+  //const renderedTemplate = ejs.render(replayMessage, {replay: contactt.replay});
+  await sendEmail(tobeReplied, "holidayplanners to you", req.body.replay,htmlMessage);
+  return res.status(202).json({message: `Replay made sucessfully`,
+theanswer:repl});
+next()
+}
+// catchAsync(replayFunction)
 

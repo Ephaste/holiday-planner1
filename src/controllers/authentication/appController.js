@@ -5,8 +5,10 @@ import nodemailer from "nodemailer";
  
 
 export const sendEmail= async (to,sub,textContent,htlmlContent)=>{
+
+    
     console.log("to",to)
-    console.log("sub",sub,textContent,htlmlContent)
+    // console.log("sub",sub,textContent,htlmlContent)
     
 try{let transporter=nodemailer.createTransport({
     service:"gmail",
@@ -15,7 +17,7 @@ try{let transporter=nodemailer.createTransport({
         pass:process.env.PASSWORD
     }
 });
-console.log(process.env.EMAIL,process.env.PASSWORD)
+// console.log(process.env.EMAIL,process.env.PASSWORD)
  let mailoptions={
     from:process.env.EMAIL,
     to:to,
@@ -25,7 +27,7 @@ console.log(process.env.EMAIL,process.env.PASSWORD)
  };
  await transporter.sendMail(mailoptions);
 
-}catch(error){console.log("send emailcatch block",error.message)}
+}catch(error){console.log("send emailcatch block",error)}
 
 
 }

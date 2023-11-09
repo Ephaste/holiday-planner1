@@ -25,7 +25,8 @@
     "multer": "^1.4.5-lts.1",
     "nanoid": "^5.0.2",
     "nodemailer": "^6.9.7",
-    "swagger": "^0.7.5",
+    "paypack-js": "^0.2.1",
+    "swagger": "^0.6.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui": "^5.9.0",
     "swagger-ui-express": "^5.0.0"

@@ -20,6 +20,7 @@ export const verifyToken = (req, res, next) => {
         });
       }
       req.userId = decoded._id;
+      req.userEmail=decoded.email
       next();
     });
   } catch (error) {
