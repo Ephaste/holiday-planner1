@@ -40,3 +40,11 @@ export const cashout = (req, res) =>{
         console.log(err);
       });
     }
+    //EVENTS
+    paypack.events({ offset: 0, limit: 100 })
+    .then((res) => {
+      console.log("777777777777777777777777777777777777777777",res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });

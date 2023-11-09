@@ -5,5 +5,5 @@ const payRouter = express.Router();
 
 
 payRouter.get("/", cashin);
-payRouter.get("/", cashout);
+payRouter.post("/", cashout);
 export default payRouter;
